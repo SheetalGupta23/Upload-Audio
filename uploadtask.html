@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Upload Task</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<style>
+
+		body{background-image: url(01.jpg);
+			background-size: cover;}
+
+		#box{height: 350px;
+			width: 400px;
+			box-sizing: border-box;
+			background-color: maroon;
+			border-radius: 30px;
+			margin-top: 150px;
+			box-shadow: 10px 10px 10px grey;}
+
+		#txt{font-size: 40px;
+			color: white;
+			font-family: arial;
+			font-weight: bold;
+			text-shadow: 5px 5px 5px black;}
+
+		#abox{height: 50px;
+			width: 390px;
+			box-sizing: border-box;
+			background-color: orange;
+			border-radius: 20px;}
+
+		#chose{padding: 15px;}
+
+		#icons{height: 50px;
+			width: 390px;
+			box-sizing: border-box;
+			position: relative;
+			top: 50px;}
+
+		#play,#pause,#stop{position: absolute;
+			color: white;
+			top: 0px;
+			cursor: pointer;}
+
+		#play,#pause{left: 40px;}
+		#pause{display: none;}
+		#stop{left: 320px;}
+
+		#rng{position: relative;
+			top: 90px;
+			left: 0px;
+			width: 350px;
+			height: 3px;
+			cursor: pointer;}
+	</style>
+</head>
+<body>
+	<center>
+		<div id="box">
+			<p id="txt">Upload Audio</p>
+			<div id="abox">
+				<input type="file" name="file" id="chose" accept="audio/*" onchange="chng()">
+				<audio src="s2.mp3" id="ado"></audio>
+			</div>
+			<div id="icons">
+				<i class="fa fa-play fa-2x" id="play"></i>
+				<i class="fa fa-pause fa-2x" id="pause"></i>
+				<i class="fa fa-stop fa-2x" id="stop"></i>
+			</div>
+			<input type="range" name="" id="rng" min="0" max="1" value="0.5" step="0.01">
+		</div>
+	</center>
+
+	<script>
+		var input=document.getElementById('chose');
+		var audio=document.getElementById('ado');
+		var play=document.getElementById('play');
+		var pause=document.getElementById('pause');
+		var stop=document.getElementById('stop');
+		var range=document.getElementById('rng');
+
+		function chng()
+		{
+			var set= new FileReader();
+			set.readAsDataURL(input.files[0]);
+			set.onload=function()
+			{
+				audio.src=set.result;
+			}
+
+		}
+
+		range.addEventListener('input', function() {
+      audio.volume = range.value;
+    });
+
+		play.onclick=function start()
+		{
+			audio.play();
+			play.style.display="none";
+			pause.style.display="block";
+		}
+
+		pause.onclick=function()
+		{
+			audio.pause()
+			play.style.display="block";
+			pause.style.display="none";
+		}
+
+		stop.onclick=function stop()
+		{
+			audio.currentTime=0;
+			play.style.display="block";
+			pause.style.display="none";
+			audio.pause();
+		}
+	</script>
+</body>
+</html>
